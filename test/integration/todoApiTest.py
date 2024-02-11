@@ -52,12 +52,13 @@ class TestApi(unittest.TestCase):
     def test_api_addtodo(self):
         print('---------------------------------------')
         print('Starting - integration test Add TODO')
-        url = BASE_URL+"/todos"
+        url = BASE_URL+"/todos/"
         data = {
          "text": "Integration text example"
         }
         response = requests.post(url, data=json.dumps(data))
         json_response = response.json()
+		print(json_response)
         print('Response Add Todo: '+ json_response['body'])
         jsonbody= json.loads(json_response['body'])
         ID_TODO = jsonbody['id']
