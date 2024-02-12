@@ -7,7 +7,7 @@ echo $status_code
 if [ $status_code = 200 ]
 then
     echo "URL correcta"
+    exit 1
 else
     echo "La url no es correcta"
-    exit 1
 fi
