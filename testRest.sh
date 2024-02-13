@@ -19,6 +19,12 @@ then
 		    echo "No hay elementos registrados"
 		else
 		    echo "Existen $totalElements elementos"
+			echo "Validar que se puede consultar el primer elemento"
+			firstElement=$(curl -s https://r89xg1nxpf.execute-api.us-east-1.amazonaws.com/Prod/todos | jq -r '.[0].id' | tr -d '\n\t')
+			status_code=$(curl -s -o /dev/null -w "%{http_code}"  https://r89xg1nxpf.execute-api.us-east-1.amazonaws.com/Prod/todos/$firstElement)
+			echo "status code"
+			echo $status_code
+			echo "fin status code"
 		fi
     else
         echo "El endpoint no funciona correctamente"
