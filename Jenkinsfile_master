@@ -1,10 +1,14 @@
 pipeline {
     agent any
-
     stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
+        stage('Run SH') {
+            steps{
+                cleanWs()
+                git branch: 'master', url: 'https://github.com/aezum19c/casopractico1c.git'
+                sh '''
+                    chmod +x testRest.sh
+                    ./testRest.sh
+                '''
             }
         }
     }
