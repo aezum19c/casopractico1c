@@ -22,8 +22,15 @@ pipeline {
             }
         }
         stage('Rest Test') {
+            environment {
+                BASE_URL = """${sh(
+                        returnStdout: true,
+                        script: 'sam list endpoints --stack-name todo-list-aws --region us-east-1 --output json | jq -r \'.[] | select(.LogicalResourceId=="ServerlessRestApi").CloudEndpoint | .[0]\' | tr -d \'\n\t\''
+                    )}""" 
+            }
             steps{
                 sh '''
+                    echo $BASE_URL
                     chmod +x testRest.sh
                     ./testRest.sh
                 '''
