@@ -24,7 +24,7 @@ then
 			status_code=$(curl -s -o /dev/null -w "%{http_code}"  https://r89xg1nxpf.execute-api.us-east-1.amazonaws.com/Prod/todos/$firstElement)
 			if [ $status_code = 200 ]
 			then
-			    echo "Elemento se busco correctamente"
+			    echo "El primer elemento se busco correctamente"
 			else
 			    echo "No funcionó la búsqueda de elemento existente"
 				exit 1
