@@ -1,10 +1,28 @@
 pipeline {
     agent any
+    options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
     stages {
-        stage('Run SH') {
-            steps{
+        stage('Get Code') {
+            steps {
+                // Clean before build
                 cleanWs()
+                // Obtener código del repo de la rama develop
                 git branch: 'master', url: 'https://github.com/aezum19c/casopractico1c.git'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh '''
+                    sam build
+                    sam deploy --stack-name "todo-list-aws" --region "us-east-1" --resolve-s3 --no-fail-on-empty-changeset --on-failure DO_NOTHING
+                '''
+            }
+        }
+        stage('Rest Test') {
+            steps{
                 sh '''
                     chmod +x testRest.sh
                     ./testRest.sh
