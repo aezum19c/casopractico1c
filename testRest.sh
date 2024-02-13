@@ -14,11 +14,11 @@ then
         echo "No se encontro un codigo con valor CODIGO_INEXISTENTE"
 		echo "Validar si existen elementos"
 		totalElements=$(curl -s https://r89xg1nxpf.execute-api.us-east-1.amazonaws.com/Prod/todos | jq -r length)
-		if [ totalElements = 0 ]
+		if [ $totalElements = 0 ]
 		then
 		    echo "No hay elementos registrados"
 		else
-		    echo "Existen %totalElements elementos"
+		    echo "Existen $totalElements elementos"
 		fi
     else
         echo "El endpoint no funciona correctamente"
