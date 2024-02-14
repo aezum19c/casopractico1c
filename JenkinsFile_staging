@@ -84,7 +84,7 @@ pipeline {
             steps {
                 git branch: 'develop', url: 'https://github.com/aezum19c/casopractico1c.git'
                 sh '''
-                    git remote set-url origin https://x-access-token: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@github.com/aezum19c/casopractico1c.git
+                    git remote set-url origin https://x-access-token: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@github.com/aezum19c/casopractico1c.git
                     git checkout master
                     git merge develop
                     git push origin master
