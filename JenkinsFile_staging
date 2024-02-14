@@ -81,10 +81,15 @@ pipeline {
             agent { 
                 label 'agente-ubuntu-03'
             }
+            environment {
+                GIT_ACCESS_TOKEN = """${sh(
+                        returnStdout: true,
+                        script: 'echo \'Z2l0aHViX3BhdF8xMUFUT01BUVkwd1VwRjZxTXU3clpmX1FwcmlxNXA3N241SVFMRXpQUHJUdkhCRThtV29TdU9FdW4wYjI0eHlhbFZHTEdPSTQ2WVRFRkFUWUJlCg==\' | base64 -d'
+                    )}""" 
+            }
             steps {
                 git branch: 'develop', url: 'https://github.com/aezum19c/casopractico1c.git'
                 sh '''
-                    export GIT_ACCESS_TOKEN=$(base64 -d <<< Z2l0aHViX3BhdF8xMUFUT01BUVkwd1VwRjZxTXU3clpmX1FwcmlxNXA3N241SVFMRXpQUHJUdkhCRThtV29TdU9FdW4wYjI0eHlhbFZHTEdPSTQ2WVRFRkFUWUJlCg==)
                     git remote set-url origin https://x-access-token:$GIT_ACCESS_TOKEN@github.com/aezum19c/casopractico1c.git
                     git checkout master
                     git merge develop
