@@ -56,7 +56,7 @@ pipeline {
                 unstash name: 'code'
                 sh '''
                     sam build
-                    sam deploy --stack-name "todo-list-aws" --region "us-east-1" --resolve-s3 --no-fail-on-empty-changeset --on-failure DO_NOTHING
+                    sam deploy --config-env staging --no-fail-on-empty-changeset
                 '''
             }
         }
