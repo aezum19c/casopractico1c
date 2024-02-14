@@ -84,7 +84,7 @@ pipeline {
             environment {
                 GIT_ACCESS_TOKEN = """${sh(
                         returnStdout: true,
-                        script: 'echo \'Z2l0aHViX3BhdF8xMUFUT01BUVkwd1VwRjZxTXU3clpmX1FwcmlxNXA3N241SVFMRXpQUHJUdkhCRThtV29TdU9FdW4wYjI0eHlhbFZHTEdPSTQ2WVRFRkFUWUJlCg==\' | base64 -d'
+                        script: 'echo Z2l0aHViX3BhdF8xMUFUT01BUVkwd1VwRjZxTXU3clpmX1FwcmlxNXA3N241SVFMRXpQUHJUdkhCRThtV29TdU9FdW4wYjI0eHlhbFZHTEdPSTQ2WVRFRkFUWUJlCg== | base64 -d | tr -d \'\n\t\''
                     )}""" 
             }
             steps {
