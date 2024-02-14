@@ -5,3 +5,5 @@ tests
 pyenvunittests
 .coverage
 coverage.xml
+Jenkinsfile_master
+Jenkinsfile_master_agentes
