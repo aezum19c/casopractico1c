@@ -14,9 +14,9 @@ pipeline {
                 cleanWs()
                 // Obtener código del repo de la rama develop
                 git branch: 'develop', url: 'https://github.com/aezum19c/casopractico1c.git'
-				sh '''
-				    wget https://raw.githubusercontent.com/aezum19c/casopractico1c-aws-config/staging/samconfig.toml
-				'''
+                sh '''
+                    wget https://raw.githubusercontent.com/aezum19c/casopractico1c-aws-config/staging/samconfig.toml
+                '''
                 stash name: 'code', includes: '**'
             }
         }
@@ -41,10 +41,10 @@ pipeline {
                     steps {
                         unstash name: 'code'
                 	    sh '''
-                			bandit --exit-zero -r . -f custom -o bandit.out --severity-level medium --msg-template "{abspath}:{line}: [{test_id}] {msg}"
-                		'''
-                		recordIssues tools: [pyLint(name: 'Bandit', pattern: 'bandit.out')], qualityGates:[[threshold:1, type: 'TOTAL', unstable: false],[threshold: 2, type: 'TOTAL', unstable: false]]
-                	}
+                                bandit --exit-zero -r . -f custom -o bandit.out --severity-level medium --msg-template "{abspath}:{line}: [{test_id}] {msg}"
+                            '''
+                            recordIssues tools: [pyLint(name: 'Bandit', pattern: 'bandit.out')], qualityGates:[[threshold:1, type: 'TOTAL', unstable: false],[threshold: 2, type: 'TOTAL', unstable: false]]
+                    }
                 }
             }
         }
