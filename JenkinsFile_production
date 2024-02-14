@@ -28,7 +28,7 @@ pipeline {
                 unstash name: 'code'
                 sh '''
                     sam build
-                    sam deploy --stack-name "todo-list-aws" --region "us-east-1" --resolve-s3 --no-fail-on-empty-changeset --on-failure DO_NOTHING
+                    sam deploy --config-env production --no-fail-on-empty-changeset
                 '''
             }
         }
@@ -39,7 +39,7 @@ pipeline {
             environment {
                 BASE_URL = """${sh(
                         returnStdout: true,
-                        script: 'sam list endpoints --stack-name todo-list-aws --region us-east-1 --output json | jq -r \'.[] | select(.LogicalResourceId=="ServerlessRestApi").CloudEndpoint | .[0]\' | tr -d \'\n\t\''
+                        script: 'sam list endpoints --stack-name todo-list-aws-production --region us-east-1 --output json | jq -r \'.[] | select(.LogicalResourceId=="ServerlessRestApi").CloudEndpoint | .[0]\' | tr -d \'\n\t\''
                     )}""" 
             }
             steps {
