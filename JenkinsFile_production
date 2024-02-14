@@ -13,7 +13,7 @@ pipeline {
                 // Clean before build
                 cleanWs()
                 // Obtener código del repo de la rama develop
-                git branch: 'master', url: 'https://github.com/aezum19c/casopractico1c.git'
+                git branch: 'production', url: 'https://github.com/aezum19c/casopractico1c.git'
                 sh '''
                     wget https://raw.githubusercontent.com/aezum19c/casopractico1c-aws-config/production/samconfig.toml
                 '''
