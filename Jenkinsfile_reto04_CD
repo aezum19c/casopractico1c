@@ -16,6 +16,7 @@ pipeline {
                 git branch: 'production', url: 'https://github.com/aezum19c/casopractico1c.git'
                 sh '''
                     wget https://raw.githubusercontent.com/aezum19c/casopractico1c-aws-config/production/samconfig.toml
+                    wget https://raw.githubusercontent.com/aezum19c/casopractico1c-aws-config/production/template.yaml
                 '''
                 stash name: 'code', includes: '**'
             }
