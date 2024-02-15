@@ -5,6 +5,8 @@ tests
 pyenvunittests
 .coverage
 coverage.xml
+Jenkinsfile_production
+Jenkinsfile_reto04_CD
 Jenkinsfile
 Jenkinsfile_staging
 template.yaml
