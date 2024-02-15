@@ -16,6 +16,7 @@ pipeline {
                 git branch: 'staging', url: 'https://github.com/aezum19c/casopractico1c.git'
                 sh '''
                     wget https://raw.githubusercontent.com/aezum19c/casopractico1c-aws-config/staging/samconfig.toml
+                    wget https://raw.githubusercontent.com/aezum19c/casopractico1c-aws-config/staging/template.yaml
                 '''
                 stash name: 'code', includes: '**'
             }
@@ -92,7 +93,9 @@ pipeline {
                 sh '''
                     git remote set-url origin https://x-access-token:$GIT_ACCESS_TOKEN@github.com/aezum19c/casopractico1c.git
                     git checkout production
-                    git merge staging
+                    git merge --no-commit staging
+                    git checkout HEAD -- Jenkinsfile
+                    git -c core.editor=/bin/true merge --continue
                     git push origin production
                 '''
                 // Clean after promote
