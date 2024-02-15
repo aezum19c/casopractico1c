@@ -2,7 +2,6 @@
 
 Este proyecto contiene un ejemplo de solución **SAM + Jenkins**. Contiene una aplicación API RESTful de libreta de tareas pendientes (ToDo) y los pipelines que permiten definir el CI/CD para productivizarla.
 
-## PRUEBA DEL RETO 05 [10]
 ## Estructura
 
 A continuación se describe la estructura del proyecto:
