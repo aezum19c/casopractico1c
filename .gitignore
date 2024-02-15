@@ -5,6 +5,7 @@ tests
 pyenvunittests
 .coverage
 coverage.xml
+Jenkinsfile
 Jenkinsfile_staging
 template.yaml
 samconfig.toml
