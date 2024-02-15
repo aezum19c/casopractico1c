@@ -7,5 +7,6 @@ pyenvunittests
 coverage.xml
 Jenkinsfile_production
 Jenkinsfile_reto04_CD
+Jenkinsfile_staging
 template.yaml
 samconfig.toml
