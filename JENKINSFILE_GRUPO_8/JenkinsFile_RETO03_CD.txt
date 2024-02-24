@@ -1,0 +1,61 @@
+pipeline {
+    agent none
+    options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+    }
+    stages {
+        stage('Get Code') {
+            agent {
+               label 'ubuntu'
+               
+           }
+            steps {
+                sh '''           
+                    whoami
+                    hostname
+                '''
+                // Clean before build
+                cleanWs()
+                // Obtener código del repo de la rama develop
+                git branch: 'master', url: 'https://github.com/DarwinMMC/todo-list-aws.git'
+                stash name :'code', includes : '**'
+            }
+        }
+        stage('Deploy') {
+           agent {
+               label 'ubuntu'
+               
+           }
+           steps {
+                sh '''
+                    whoami
+                    hostname
+                    sam build
+                    sam deploy --stack-name "todo-list-aws" --region "us-east-1" --resolve-s3 --no-fail-on-empty-changeset --on-failure DO_NOTHING
+                    sam list endpoints --stack-name todo-list-aws --region us-east-1 --output json | grep https | head -n 1 | sed 's/\"//g; s/,//g' | tr -d '[:space:]' > BASE_URL.txt
+                '''
+                 stash includes: 'BASE_URL.txt', name: 'BASE_URL'
+            }
+        }
+            stage('Rest') {
+            agent {
+                label 'integration_testing'
+                
+            }
+            steps {
+                unstash name: 'code'
+                unstash name: 'BASE_URL'
+                sh '''
+                    whoami
+                    hostname
+                    export BASE_URL=$(cat BASE_URL.txt)
+                    chmod +x RestTest.sh
+                    ./RestTest.sh
+                '''
+               
+            }
+        }
+        
+    }
+}
